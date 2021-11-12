@@ -123,7 +123,7 @@ bool TVector<ValType>::operator==(const TVector &v) const
             }
         }
     }
-    return true
+    return true;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сравнение
