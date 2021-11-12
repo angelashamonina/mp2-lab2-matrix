@@ -1,9 +1,9 @@
-// ННГУ, ВМК, Курс "Методы программирования-2", С++, ООП
+// РќРќР“РЈ, Р’РњРљ, РљСѓСЂСЃ "РњРµС‚РѕРґС‹ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёСЏ-2", РЎ++, РћРћРџ
 //
-// sample_matrix.cpp - Copyright (c) Гергель В.П. 07.05.2001
-//   Переработано для Microsoft Visual Studio 2008 Сысоевым А.В. (20.04.2015)
+// sample_matrix.cpp - Copyright (c) Р“РµСЂРіРµР»СЊ Р’.Рџ. 07.05.2001
+//   РџРµСЂРµСЂР°Р±РѕС‚Р°РЅРѕ РґР»СЏ Microsoft Visual Studio 2008 РЎС‹СЃРѕРµРІС‹Рј Рђ.Р’. (20.04.2015)
 //
-// Тестирование верхнетреугольной матрицы
+// РўРµСЃС‚РёСЂРѕРІР°РЅРёРµ РІРµСЂС…РЅРµС‚СЂРµСѓРіРѕР»СЊРЅРѕР№ РјР°С‚СЂРёС†С‹
 
 #include <iostream>
 #include "utmatrix.h"
@@ -11,21 +11,69 @@
 
 void main()
 {
-  TMatrix<int> a(5), b(5), c(5);
-  int i, j;
+ int  n, k;
+	cout << "Testing programs to support the submission of triangular matrices" << endl;
+	cout << "Enter the size of matrix" << endl;
+	cin >> n;
+	TMatrix<int> m1(n),m2(n);
+	cout << "Choose the method of filling the matrix:" << endl;
+	cout << "1) Random numbers" << endl;
+	cout << "2) By keyboard" << endl;
+	cin >> k;
+	switch (k)
+	{
+	case 1:
+	{
+		for (int i = 0; i < n; i++) {
+			for (int j = i; j < n; j++) {
+				m1[i][j] = rand() ;
+				m2[i][j] = rand() ;
+			}
+		}
+		cout << m1 << endl;
+		cout << m2 << endl;
+		break;
+	}
+	case 2:
+	{
+		cout << "Enter matrix a" << endl;
+		cin >> m1;
+		cout << "Enter matrix b" << endl;
+		cin >> m2;
+		cout << m1 << endl;
+		cout << m2 << endl;
+		break;
+	}
 
-  setlocale(LC_ALL, "Russian");
-  cout << "Тестирование программ поддержки представления треугольных матриц"
-    << endl;
-  for (i = 0; i < 5; i++)
-    for (j = i; j < 5; j++ )
-    {
-      a[i][j] =  i * 10 + j;
-      b[i][j] = (i * 10 + j) * 100;
-    }
-  c = a + b;
-  cout << "Matrix a = " << endl << a << endl;
-  cout << "Matrix b = " << endl << b << endl;
-  cout << "Matrix c = a + b" << endl << c << endl;
+	default:
+	{
+		cout << "Wrong choice";
+		cout << "1.Random numbers" << endl << "2.By keyboard" << endl;
+		cin >> k;
+	}
+	}
+	cout << "Choose the actions to perform " << endl;
+	cout << "1) Addition of matrices a+b" << endl;
+	cout << "2) Subtraction of matrices a-b" << endl;
+	cin >> k;
+	switch (k)
+	{
+	case 1:
+	{
+		cout << m1 + m2 << endl;
+		break;
+	}
+	case 2:
+	{
+		cout << m1 - m2 << endl;
+		break;
+	}
+
+	default:
+	{cout << "Wrong choice";
+	cout << "1) Addition of matrices a+b" << endl << "2) Subtraction of matrices a-b" << endl;
+	cin >> k;
+	}
+	}
 }
 //---------------------------------------------------------------------------
