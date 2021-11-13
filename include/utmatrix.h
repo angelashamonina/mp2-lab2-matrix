@@ -163,7 +163,7 @@ TVector<ValType> TVector<ValType>::operator+(const ValType &val)
     }
     for (int i = StartIndex; i < res.Size; i++)
     {
-        res.pVector[i] = res.pVector[i] + (*this)[i];
+        res.pVector[i] = res.pVector[i] + pVector[i - StartIndex];
     }
     return res;
 } /*-------------------------------------------------------------------------*/
@@ -171,8 +171,8 @@ TVector<ValType> TVector<ValType>::operator+(const ValType &val)
 template <class ValType> // вычесть скаляр
 TVector<ValType> TVector<ValType>::operator-(const ValType &val)
 {
-    TVector rez(*this);
-    return rez + (-1) * val;
+    TVector res(*this);
+    return res + (-1) * val;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // умножить на скаляр
@@ -194,28 +194,27 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
         throw "Size of vectors not equal";
     }
     if (Size < v.Size) {
-        TVector<ValType> res(v.Size, v.StartIndex);
-        for (int i = 0; i < StartIndex - v.StartIndex; i++) 
+        TVector<ValType> res(v);
+        for (int i = 0; i < StartIndex - v.StartIndex; i++)
         {
-            res.pVector[i] = v.pVector[i];
+            res.pVector[i] = v.pVector[i] ;
         }
-        for (int i = StartIndex - v.StartIndex; i < v.Size; i++)
+        for (int i = 0; i < Size; i++)
         {
-            res.pVector[i] = v.pVector[i] + pVector[i - StartIndex + v.StartIndex];
+            res.pVector[i + StartIndex - v.StartIndex] = pVector[i] + v.pVector[i + StartIndex - v.StartIndex];
         }
         return res;
+
     }
-    else {
-        TVector<ValType> res(Size, StartIndex);
-        for (int i = 0; i < v.StartIndex - StartIndex; i++)
+    else
+    {
+        TVector<ValType> res(*this);
+        for (int i = 0; i < v.Size; i++)
         {
-            res.pVector[i] = pVector[i];
-        }
-        for (int i = v.StartIndex - StartIndex; i < Size; i++) 
-        {
-            res.pVector[i] = pVector[i] + v.pVector[i - v.StartIndex + StartIndex];
+            res.pVector[i + v.StartIndex - StartIndex] = res.pVector[i + v.StartIndex - StartIndex] + v.pVector[i];
         }
         return res;
+
     }
 } /*-------------------------------------------------------------------------*/
 
@@ -352,7 +351,7 @@ template <class ValType> // присваивание
 TMatrix<ValType>& TMatrix<ValType>::operator=(const TMatrix<ValType> &mt)
 {
     TVector<TVector<ValType>>::operator=(mt);
-    return(*this);
+    return *this;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сложение
