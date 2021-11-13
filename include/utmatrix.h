@@ -190,7 +190,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
     if (Size + StartIndex != v.Size + v.StartIndex)
     {
-        throw "Size of vectors not equal";
+        throw "Size of vectors are different";
     }
     if (Size < v.Size) {
         TVector<ValType> res(v);
@@ -222,7 +222,7 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
     if (StartIndex + Size != v.Size + v.StartIndex)
     {
-        throw "Size of vectors not equal";
+        throw "Size of vectors are different";
     }
     if (Size < v.Size)
     {
@@ -255,7 +255,7 @@ ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
     if (Size + StartIndex != v.Size + v.StartIndex)
     {
-        throw "Size of vectors not equal";
+        throw "Size of vectors are different";
     }
     else
     {
