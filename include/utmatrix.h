@@ -170,9 +170,8 @@ TVector<ValType> TVector<ValType>::operator+(const ValType &val)
 
 template <class ValType> // вычесть скаляр
 TVector<ValType> TVector<ValType>::operator-(const ValType &val)
-{
-    TVector res(*this);
-    return res + (-1) * val;
+{ 
+  return (*this) + (-1) * val;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // умножить на скаляр
